@@ -29,8 +29,8 @@ public class Task {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date datumRokaZadatka;
 
-    @Column(name = "oznaka_bojom")
-    private String oznakaBojom;
+    @Column(name = "razina_nuznosti")
+    private String urgency;
 
     public int getId() {
         return id;
@@ -72,12 +72,12 @@ public class Task {
         this.datumRokaZadatka = datumRokaZadatka;
     }
 
-    public String getOznakaBojom() {
-        return oznakaBojom;
+    public String getUrgency() {
+        return urgency;
     }
 
-    public void setOznakaBojom(String oznakaBojom) {
-        this.oznakaBojom = oznakaBojom;
+    public void setUrgency(String oznakaBojom) {
+        this.urgency = oznakaBojom;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Task {
                 ", opisZadatka='" + opisZadatka + '\'' +
                 ", datumStvaranjaZadatka=" + datumStvaranjaZadatka +
                 ", datumRokaZadatka=" + datumRokaZadatka +
-                ", oznakaBojom='" + oznakaBojom + '\'' +
+                ", urgency='" + urgency + '\'' +
                 '}';
     }
 }

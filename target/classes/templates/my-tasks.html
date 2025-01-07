@@ -4,8 +4,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>My Tasks</title>
+    <style>
+        #addTaskForm {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function toggleAddTaskForm() {
+            const form = document.getElementById('addTaskForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
 </head>
 <body>
+<div>
+    <h1>My Tasks</h1>
 
+    <button onclick="toggleAddTaskForm()">Add New Task</button>
+
+    <div id="addTaskForm">
+        <h2>Create Task</h2>
+        <form th:action="@{/tasks/save}" th:object="${task}" method="post">
+            <div>
+                <label for="nazivZadatka">Task Name:</label>
+                <input type="text" id="nazivZadatka" name="nazivZadatka" th:field="*{nazivZadatka}" required>
+            </div>
+
+            <div>
+                <label for="opisZadatka">Task Description:</label>
+                <textarea id="opisZadatka" name="opisZadatka" th:field="*{opisZadatka}" required></textarea>
+            </div>
+
+            <div>
+                <label for="datumStvaranjaZadatka">Creation Date:</label>
+                <input type="date" id="datumStvaranjaZadatka" name="datumStvaranjaZadatka" th:field="*{datumStvaranjaZadatka}" required>
+            </div>
+
+            <div>
+                <label for="datumRokaZadatka">Deadline:</label>
+                <input type="date" id="datumRokaZadatka" name="datumRokaZadatka" th:field="*{datumRokaZadatka}" required>
+            </div>
+
+            <div>
+                <label for="nuznost">Nužnost</label>
+                <input type="text" id="nuznost" name="nuznost" th:field="*{urgency}" required>
+            </div>
+
+            <div>
+                <button type="submit">Save Task</button>
+            </div>
+        </form>
+    </div>
+
+    <h2>Task List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Creation Date</th>
+            <th>Deadline</th>
+            <th>Color Label</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.nazivZadatka}"></td>
+            <td th:text="${task.opisZadatka}"></td>
+            <td th:text="${task.datumStvaranjaZadatka}"></td>
+            <td th:text="${task.datumRokaZadatka}"></td>
+            <td th:text="${task.urgency}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

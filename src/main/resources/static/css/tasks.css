@@ -13,6 +13,8 @@ h1 {
 }
 
 button {
+    margin: 20px auto;
+    border-collapse: collapse;
     background-color: #d4a373;
     border: none;
     border-radius: 5px;
@@ -20,7 +22,6 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
-    margin: 10px 0;
 }
 
 button:hover {
@@ -63,7 +64,7 @@ button[type="submit"] {
 }
 
 table {
-    width: 90%;
+    width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
     background-color: #fff;

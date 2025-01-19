@@ -54,10 +54,10 @@
                 <div>
                     <label for="nuznost">Urgency:</label>
                     <select class="form-select form-select-lg mb-3" name="nuznostSelect" id="nuznost" th:field="*{urgency}">
-                        <option selected value="not">Low</option>
-                        <option value="mid">Medium</option>
-                        <option value="high">High</option>
-                        <option value="snoop">Critical</option>
+                        <option selected value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
                     </select>
                 </div>
 
@@ -66,14 +66,14 @@
                 </div>
             </form>
         </div>
-        <table>
+        <table class=" table-hover"> <!-- Add 'table' when you figure out why bootstrap kills css -->
             <thead>
             <tr>
                 <th>Task Name</th>
                 <th>Description</th>
                 <th>Creation Date</th>
                 <th>Deadline</th>
-                <th>Color Label</th>
+                <th>Urgency</th>
             </tr>
             </thead>
             <tbody>

@@ -32,6 +32,9 @@ public class Task {
     @Column(name = "razina_nuznosti")
     private String urgency;
 
+    @Column(name = "user_id")
+    private int userId;
+
     public int getId() {
         return id;
     }
@@ -78,6 +81,14 @@ public class Task {
 
     public void setUrgency(String oznakaBojom) {
         this.urgency = oznakaBojom;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override

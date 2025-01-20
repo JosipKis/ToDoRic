@@ -9,17 +9,21 @@ import java.util.List;
 @Service
 public class TaskService {
 
-    private final TaskRepository TASKREPOSITORY;
+    private final TaskRepository TASK_REPOSITORY;
 
     public TaskService(TaskRepository taskRepository) {
-        TASKREPOSITORY = taskRepository;
+        TASK_REPOSITORY = taskRepository;
     }
 
     public List<Task> findAll() {
-        return TASKREPOSITORY.findAll();
+        return TASK_REPOSITORY.findAll();
     }
 
     public Task save(Task task) {
-        return TASKREPOSITORY.save(task);
+        return TASK_REPOSITORY.save(task);
+    }
+
+    public List<Task> getTasksByUserName(String userName) {
+        return TASK_REPOSITORY.findByUserName(userName);
     }
 }

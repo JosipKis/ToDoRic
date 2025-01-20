@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import unizd.inoIT.todo.model.Task;
 import unizd.inoIT.todo.service.TaskService;
@@ -23,10 +24,9 @@ public class TaskController {
     }
 
     @GetMapping("/my-tasks")
-    public String mojiZadatci(Model model, Authentication auth) {
-        List<Task> tasks = TASKS_SERVICE.findAll();
+    public String mojiZadatci(Model model, Authentication authentication) {
+        List<Task> tasks = TASKS_SERVICE.getTasksByUserName(authentication.getName());
         Task task = new Task();
-
 
         model.addAttribute("task", task);
         model.addAttribute("tasks", tasks);
@@ -34,7 +34,8 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/save")
-    public String saveTask(@ModelAttribute("task") Task task) {
+    public String saveTask(@ModelAttribute("task") Task task, Authentication authentication) {
+        task.setUserName(authentication.getName());
         TASKS_SERVICE.save(task);
         return "redirect:/my-tasks";
     }

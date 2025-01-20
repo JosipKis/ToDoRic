@@ -96,12 +96,16 @@
 
         thead th {
             padding: 10px;
-            text-align: left;
         }
 
         tbody td {
             padding: 10px;
             border-bottom: 1px solid #ccc;
+        }
+
+        tr, td, th {
+            text-align: center;
+            vertical-align: middle;
         }
 
         tbody tr:nth-child(even) {
@@ -174,8 +178,8 @@
             <tr th:each="task : ${tasks}">
                 <td th:text="${task.nazivZadatka}"></td>
                 <td th:text="${task.opisZadatka}"></td>
-                <td th:text="${task.datumStvaranjaZadatka}"></td>
-                <td th:text="${task.datumRokaZadatka}"></td>
+                <td th:text="${#dates.format(task.datumStvaranjaZadatka, 'dd.MM.yyyy.')}"></td>
+                <td th:text="${#dates.format(task.datumRokaZadatka, 'dd.MM.yyyy.')}"></td>
                 <td th:text="${task.urgency}"></td>
             </tr>
             </tbody>

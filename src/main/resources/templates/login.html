@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Prijava</title>
+    <title>Login</title>
+
 </head>
-<body>
-<form method="post" action="/login">
-    <label for="username">Korisničko ime:</label>
-    <input type="text" id="username" name="username" required>
-    <br>
-    <label for="password">Lozinka:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <button type="submit">Prijavi se</button>
+<body >
+<h1>Login Page</h1>
+<form th:action="@{/login}" method="post">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Login</button>
 </form>
 </body>
 </html>

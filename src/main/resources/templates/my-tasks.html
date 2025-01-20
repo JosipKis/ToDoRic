@@ -111,12 +111,65 @@
         tbody tr:nth-child(even) {
             background-color: #f9f4ef;
         }
+
+        /* Hamburger Menu */
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -200px; /* Initially hidden */
+            width: 200px;
+            height: 100%;
+            background-color: #6b4226;
+            color: white;
+            transition: right 0.3s ease;
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #d4a373;
+        }
+
+        .sidebar.open {
+            right: 0; /* Show when open */
+        }
     </style>
 
     <script>
         function toggleAddTaskForm() {
             const form = document.getElementById('addTaskForm');
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Toggle sidebar visibility
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
         }
     </script>
 </head>
@@ -167,7 +220,7 @@
         <table class="table-hover">
             <thead>
             <tr>
-                <th>Task Name
+                <th>Task Name</th>
                 <th>Description</th>
                 <th>Creation Date</th>
                 <th>Deadline</th>
@@ -186,10 +239,23 @@
                 <td th:text="${#dates.format(task.datumRokaZadatka, 'dd.MM.yyyy.')}"></td>
                 <td th:text="${task.urgency}"></td>
             </tr>
-
             </tbody>
         </table>
     </div>
 </div>
+
+<!-- Hamburger Icon -->
+<div class="hamburger" onclick="toggleSidebar()">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/my-profile">My Profile</a>
+    <a href="/logout">Logout</a>
+</div>
+
 </body>
 </html>

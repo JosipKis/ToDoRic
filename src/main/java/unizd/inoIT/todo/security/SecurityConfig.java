@@ -33,8 +33,9 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/my-tasks")
                         .permitAll()
                 )
-                .logout(logout -> logout.logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")  // Redirect to login page after logout
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
                 .build();

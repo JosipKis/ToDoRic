@@ -58,6 +58,20 @@
             color: #6b4226;
             font-weight: bold;
         }
+
+        .register-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .register-link a {
+            color: #6b4226;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -73,5 +87,8 @@
     </div>
     <button type="submit">Login</button>
 </form>
+<div class="register-link">
+    <p>Don't have an account? <a th:href="@{/register}">Register now</a></p>
+</div>
 </body>
 </html>

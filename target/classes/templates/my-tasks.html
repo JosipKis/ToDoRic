@@ -175,13 +175,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="task : ${tasks}">
+            <tr th:each="task : ${tasks}" th:style="'background-color:' +
+                (${task.urgency} == 'Low' ? ${low} :
+                (${task.urgency} == 'Medium' ? ${medium} :
+                (${task.urgency} == 'High' ? ${high} :
+                (${task.urgency} == 'Critical' ? ${critical} : 'transparent'))))">
                 <td th:text="${task.nazivZadatka}"></td>
                 <td th:text="${task.opisZadatka}"></td>
                 <td th:text="${#dates.format(task.datumStvaranjaZadatka, 'dd.MM.yyyy.')}"></td>
                 <td th:text="${#dates.format(task.datumRokaZadatka, 'dd.MM.yyyy.')}"></td>
                 <td th:text="${task.urgency}"></td>
             </tr>
+
             </tbody>
         </table>
     </div>

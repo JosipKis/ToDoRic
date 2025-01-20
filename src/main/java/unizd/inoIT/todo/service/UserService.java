@@ -1,6 +1,4 @@
 package unizd.inoIT.todo.service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +24,22 @@ public class UserService implements UserDetailsService {
 
     public User save(User user) {
         return USER_REPOSITORY.save(user);
+    }
+
+    public String getLowUrgency(String userName){
+        return USER_REPOSITORY.lowUrgency(userName);
+    }
+
+    public String getMidUrgency(String userName){
+        return USER_REPOSITORY.midUrgency(userName);
+    }
+
+    public String getHighUrgency(String userName){
+        return USER_REPOSITORY.highUrgency(userName);
+    }
+
+    public String getCriticalUrgency(String userName){
+        return USER_REPOSITORY.criticalUrgency(userName);
     }
 
     @Override

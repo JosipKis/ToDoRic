@@ -254,7 +254,9 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <a href="/my-profile">My Profile</a>
-    <a href="/logout">Logout</a>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout">
+    </form>
 </div>
 
 </body>

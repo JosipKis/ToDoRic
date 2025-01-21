@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+
 @Entity
 @Table(name = "task")
 public class Task {
@@ -33,7 +34,7 @@ public class Task {
     private String urgency;
 
     @Column(name = "user_id")
-    private int userId;
+    private String userName;
 
     public int getId() {
         return id;
@@ -83,12 +84,12 @@ public class Task {
         this.urgency = oznakaBojom;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserName(String userId) {
+        this.userName = userId;
     }
 
     @Override

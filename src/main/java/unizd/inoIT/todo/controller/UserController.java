@@ -73,5 +73,23 @@ public class UserController {
         return "redirect:/my-profile";
     }
 
+    @PostMapping("/my-profile/update-urgency")
+    public String updateUrgencySubmit(
+            @RequestParam("lowUrgency") String lowUrgency,
+            @RequestParam("midUrgency") String midUrgency,
+            @RequestParam("highUrgency") String highUrgency,
+            @RequestParam("criticalUrgency") String criticalUrgency,
+            Principal principal){
+
+        User user = userService.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        user.setLowUrgency(lowUrgency);
+        user.setMidUrgency(midUrgency);
+        user.setHighUrgency(highUrgency);
+        user.setCriticalUrgency(criticalUrgency);
+        userService.save(user);
+        return "redirect:/my-profile";
+    }
 
 }

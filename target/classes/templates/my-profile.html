@@ -197,16 +197,16 @@
     <button onclick="showUrgencyForm()">Change Urgency Colors</button>
     <form id="urgencyForm" style="display: none" th:action="@{/my-profile/update-urgency}" method="post">
         <label for="low">Low Urgency</label>
-        <input type="color" id="low" th:value="${user.get().getLowUrgency()}">
+        <input type="color" id="low" name="lowUrgency" th:value="${user.get().getLowUrgency()}">
 
         <label for="mid">Medium Urgency</label>
-        <input type="color" id="mid" th:value="${user.get().getMidUrgency()}">
+        <input type="color" id="mid" name="midUrgency" th:value="${user.get().getMidUrgency()}">
 
         <label for="high">High Urgency</label>
-        <input type="color" id="high" th:value="${user.get().getHighUrgency()}">
+        <input type="color" id="high" name="highUrgency" th:value="${user.get().getHighUrgency()}">
 
         <label for="critical">Critical Urgency</label>
-        <input type="color" id="critical" th:value="${user.get().getCriticalUrgency()}">
+        <input type="color" id="critical" name="criticalUrgency" th:value="${user.get().getCriticalUrgency()}">
 
         <button type="submit">Update</button>
     </form>

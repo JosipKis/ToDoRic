@@ -26,6 +26,10 @@ public class UserService implements UserDetailsService {
         return USER_REPOSITORY.save(user);
     }
 
+    public Optional<User> findByUsername(String username) {
+        return USER_REPOSITORY.findByUserName(username);
+    }
+
     public String getLowUrgency(String userName){
         return USER_REPOSITORY.lowUrgency(userName);
     }

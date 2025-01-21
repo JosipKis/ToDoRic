@@ -24,6 +24,11 @@ public class TaskService {
         return TASK_REPOSITORY.findByUserNameAndStatus(username, "open");
     }
 
+    public List<Task> getTasksByUserNameAndStatus(String username, String status) {
+        return TASK_REPOSITORY.findByUserNameAndStatus(username, status);
+    }
+
+
     public Task save(Task task) {
         return TASK_REPOSITORY.save(task);
     }

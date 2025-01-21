@@ -181,6 +181,7 @@
     <input type="text" id="date" th:value="${#dates.format(user.get().getDatumStvaranjaZadatka(), 'dd.MM.yyyy.')}" readonly>
 
     <button onclick="showPasswordForm()">Change Password</button>
+    <button onclick="showUrgencyForm()">Change Urgency Colors</button>
     <form id="passForm" style="display: none" th:action="@{/my-profile/update-password}" method="post">
         <label for="oldPass">Enter old password:</label>
         <input type="password" id="oldPass" name="oldPassword">
@@ -194,7 +195,6 @@
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 
-    <button onclick="showUrgencyForm()">Change Urgency Colors</button>
     <form id="urgencyForm" style="display: none" th:action="@{/my-profile/update-urgency}" method="post">
         <label for="low">Low Urgency</label>
         <input type="color" id="low" name="lowUrgency" th:value="${user.get().getLowUrgency()}">
@@ -210,6 +210,27 @@
 
         <button type="submit">Update</button>
     </form>
+
+    <div id="menu">
+        <button onclick="showCompletedTasks()">Completed Tasks</button>
+    </div>
+
+    <div id="completedTasks" style="display: none;">
+        <h3>Completed Tasks</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Completion Date</th>
+            </tr>
+            </thead>
+            <tbody id="completedTasksBody">
+            <!-- Completed tasks will be dynamically inserted here -->
+            </tbody>
+        </table>
+        <button onclick="hideCompletedTasks()">Close</button>
+    </div>
 
 
     <!--
@@ -241,6 +262,33 @@
         }else {
             urgencyForm.style.display = "block";
         }
+    }
+
+    function showCompletedTasks() {
+        fetch('/my-tasks/completed')
+            .then(response => response.json())
+            .then(data => {
+                const completedTasksBody = document.getElementById('completedTasksBody');
+                completedTasksBody.innerHTML = ''; // Clear existing content
+
+                data.forEach(task => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${task.nazivZadatka}</td>
+                        <td>${task.opisZadatka}</td>
+                        <td th:text="${#dates.format(task.completedDate, 'dd.MM.yyyy.')}"></td>
+
+                    `;
+                    completedTasksBody.appendChild(row);
+                });
+
+                document.getElementById('completedTasks').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching completed tasks:', error));
+    }
+
+    function hideCompletedTasks() {
+        document.getElementById('completedTasks').style.display = 'none';
     }
 </script>
 </body>

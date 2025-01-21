@@ -39,6 +39,10 @@ public class Task {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "completed_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date completedDate;
+
     public int getId() {
         return id;
     }
@@ -101,6 +105,14 @@ public class Task {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(Date completedDate) {
+        this.completedDate = completedDate;
     }
 
     @Override

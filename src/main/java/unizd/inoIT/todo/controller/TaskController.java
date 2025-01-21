@@ -9,6 +9,7 @@ import unizd.inoIT.todo.model.Task;
 import unizd.inoIT.todo.service.TaskService;
 import unizd.inoIT.todo.service.UserService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,14 @@ public class TaskController {
         return "my-tasks";
     }
 
+    @GetMapping("/my-tasks/completed")
+    @ResponseBody
+    public List<Task> getCompletedTasks(Authentication authentication) {
+        String username = authentication.getName();
+        return TASKS_SERVICE.getTasksByUserNameAndStatus(username, "solved");
+    }
+
+
 
     @PostMapping("/tasks/save")
     public String saveTask(@ModelAttribute("task") Task task, Authentication authentication) {
@@ -54,14 +63,14 @@ public class TaskController {
         Optional<Task> task = TASKS_SERVICE.findById(taskId);
         if (task.isPresent()) {
             Task t = task.get();
-            t.setStatus("solved"); // Update status to solved
-            TASKS_SERVICE.save(t); // Save the updated task
+            t.setStatus("solved");
+            t.setCompletedDate(new Date());
+            TASKS_SERVICE.save(t);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @DeleteMapping("/tasks/{taskId}/delete")
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
@@ -73,7 +82,5 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 
 }

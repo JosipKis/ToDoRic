@@ -36,6 +36,9 @@ public class Task {
     @Column(name = "user_id")
     private String userName;
 
+    @Column(name = "status")
+    private String status;
+
     public int getId() {
         return id;
     }
@@ -90,6 +93,14 @@ public class Task {
 
     public void setUserName(String userId) {
         this.userName = userId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

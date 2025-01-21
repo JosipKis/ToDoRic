@@ -5,6 +5,7 @@ import unizd.inoIT.todo.model.Task;
 import unizd.inoIT.todo.repository.TaskRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -23,7 +24,21 @@ public class TaskService {
         return TASK_REPOSITORY.save(task);
     }
 
+    public void deleteTask(Task task) {
+        TASK_REPOSITORY.delete(task);
+    }
+
+    public void updateStatus(long id, String status) {
+        Task task = TASK_REPOSITORY.findById(id).get();
+        task.setStatus(status);
+        TASK_REPOSITORY.save(task);
+    }
+
     public List<Task> getTasksByUserName(String userName) {
         return TASK_REPOSITORY.findByUserName(userName);
+    }
+
+    public Optional<Task> findById(Long taskId) {
+        return TASK_REPOSITORY.findById(taskId);
     }
 }

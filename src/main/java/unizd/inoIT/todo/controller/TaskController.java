@@ -1,16 +1,16 @@
 package unizd.inoIT.todo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import unizd.inoIT.todo.model.Task;
 import unizd.inoIT.todo.service.TaskService;
 import unizd.inoIT.todo.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TaskController {
@@ -47,4 +47,32 @@ public class TaskController {
         TASKS_SERVICE.save(task);
         return "redirect:/my-tasks";
     }
+
+    @PostMapping("/tasks/{taskId}/markAsSolved")
+    public ResponseEntity<Void> markTaskAsSolved(@PathVariable Long taskId) {
+        Optional<Task> task = TASKS_SERVICE.findById(taskId);
+        if (task.isPresent()) {
+            Task t = task.get();
+            t.setStatus("solved"); // Update status to solved
+            TASKS_SERVICE.save(t); // Save the updated task
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @DeleteMapping("/tasks/{taskId}/delete")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
+        Optional<Task> task = TASKS_SERVICE.findById(taskId);
+        if (task.isPresent()) {
+            TASKS_SERVICE.deleteTask(task.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 }

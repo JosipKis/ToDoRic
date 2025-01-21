@@ -24,7 +24,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.securityMatcher("/**").authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/css/**", "/js/**", "/images/**", "/register").permitAll();
+                    authorize.requestMatchers("/css/**", "/js/**", "/images/**", "/register", "/tasks/**").permitAll();
                     authorize.anyRequest().authenticated();
                         }
                         
@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
+                .csrf().disable()
                 .build();
     }
 

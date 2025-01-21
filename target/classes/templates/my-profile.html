@@ -180,8 +180,14 @@
     <label for="date">Profile Creation Date:</label>
     <input type="text" id="date" th:value="${#dates.format(user.get().getDatumStvaranjaZadatka(), 'dd.MM.yyyy.')}" readonly>
 
+    <label for="completedCtnr">Completed Tasks:</label>
+    <p id="completedCtnr" th:text="${user.get().completedCntr}"></p>
+
+    <label for="deletedCntr">Deleted Tasks:</label>
+    <p id="deletedCntr" th:text="${user.get().deletedCntr}"></p>
+
     <button onclick="showPasswordForm()">Change Password</button>
-    <button onclick="showUrgencyForm()">Change Urgency Colors</button>
+    <button style="float: right;" onclick="showUrgencyForm()">Change Urgency Colors</button>
     <form id="passForm" style="display: none" th:action="@{/my-profile/update-password}" method="post">
         <label for="oldPass">Enter old password:</label>
         <input type="password" id="oldPass" name="oldPassword">
@@ -276,8 +282,7 @@
                     row.innerHTML = `
                         <td>${task.nazivZadatka}</td>
                         <td>${task.opisZadatka}</td>
-                        <td th:text="${#dates.format(task.completedDate, 'dd.MM.yyyy.')}"></td>
-
+                        <td>${task.completedDate}</td>
                     `;
                     completedTasksBody.appendChild(row);
                 });

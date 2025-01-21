@@ -52,6 +52,12 @@ public class User implements UserDetails {
     @Column(name = "critical_urgency")
     private String criticalUrgency;
 
+    @Column(name = "completed_cntr")
+    private int completedCntr;
+
+    @Column(name = "deleted_cntr")
+    private int deletedCntr;
+
     public int getId() {
         return id;
     }
@@ -132,6 +138,22 @@ public class User implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public int getCompletedCntr() {
+        return completedCntr;
+    }
+
+    public void setCompletedCntr(int completedCntr) {
+        this.completedCntr = completedCntr;
+    }
+
+    public int getDeletedCntr() {
+        return deletedCntr;
+    }
+
+    public void setDeletedCntr(int deletedCntr) {
+        this.deletedCntr = deletedCntr;
     }
 
     @Override

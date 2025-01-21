@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import unizd.inoIT.todo.model.Task;
+import unizd.inoIT.todo.model.User;
 import unizd.inoIT.todo.service.TaskService;
 import unizd.inoIT.todo.service.UserService;
 
@@ -59,12 +60,23 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/{taskId}/markAsSolved")
-    public ResponseEntity<Void> markTaskAsSolved(@PathVariable Long taskId) {
+    public ResponseEntity<Void> markTaskAsSolved(@PathVariable Long taskId, Authentication authentication) {
         Optional<Task> task = TASKS_SERVICE.findById(taskId);
         if (task.isPresent()) {
             Task t = task.get();
             t.setStatus("solved");
             t.setCompletedDate(new Date());
+
+            try {
+                Optional<User> user = USER_SERVICE.findByUsername(authentication.getName());
+                int completed = user.get().getCompletedCntr();
+                completed++;
+                user.get().setCompletedCntr(completed);
+                System.out.println("completed: " + completed);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
             TASKS_SERVICE.save(t);
             return ResponseEntity.ok().build();
         } else {
@@ -73,9 +85,20 @@ public class TaskController {
     }
 
     @DeleteMapping("/tasks/{taskId}/delete")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId, Authentication authentication) {
         Optional<Task> task = TASKS_SERVICE.findById(taskId);
         if (task.isPresent()) {
+
+            try {
+                Optional<User> user = USER_SERVICE.findByUsername(authentication.getName());
+                int deleted = user.get().getDeletedCntr();
+                deleted++;
+                user.get().setDeletedCntr(deleted);
+                System.out.println("deleted: " + deleted);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
             TASKS_SERVICE.deleteTask(task.get());
             return ResponseEntity.ok().build();
         } else {
